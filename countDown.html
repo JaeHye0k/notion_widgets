@@ -18,31 +18,20 @@ body{
   font-family: 'Lato', sans-serif;
   font-size: .7em;
   letter-spacing: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.days, .hours, .minutes, .seconds {
+.time, .date{
   display: inline-block;
   padding: 20px;
-  width: 100px;
+  width: 400px;
   border-radius: 5px;
-}
-
-.days {
-  background: #EF2F3C;
-}
-
-.hours {
   background: #eeeeee;
   color: #183059;
 }
 
-.minutes {
-  background: #276FBF;
-}
-
-.seconds {
-  background: #F0A202;
-}
 
 .numbers {
   font-family: 'Montserrat', sans-serif;
@@ -50,7 +39,7 @@ body{
   font-size: 4em;
   text-align: center;
 }
-
+/* 
 .white {
   position: absolute;
   background:  #eeeeee;
@@ -79,7 +68,7 @@ body{
   top: 5%;
 
 
-}
+} */
 
 
     </style>
@@ -87,47 +76,48 @@ body{
 <body>
     
 <div id="timer">
-
-    <div class="days"> 
-        <div id="days" class="numbers "> </div>days</div> 
-      <div class="hours"> 
-        <div  id="hours" class="numbers"> </div>hours</div> 
-      <div class="minutes"> 
-        <div  id="minutes" class="numbers"> </div>minutes</div> 
-      <div   class="seconds"> 
-        <div id="seconds" class="numbers"> </div>seconds</div> 
-      </div>
+    <div class="date">
+      <div id="date" class="numbers"></div> 
+      date
+    </div>
+    <div class="time">
+        <div id="time" class="numbers"> </div>time</div> 
+    </div>
+    
+      
 
 </div>
 
 </body>
 <script>
-    const year = new Date().getFullYear();
-const myDate = new Date('Oct 15, 2024 00:00:00');
-console.log(myDate);
+const today = new Date();
 
-// countdown
-let timer = setInterval(function() {
+let year = today.getFullYear();
+let month = today.getMonth() + 1;
+let date = today.getDate();
+document.getElementById("date").innerHTML=`${year} / ${month} / ${date}`;
 
-  // get today's date
-  const today = new Date().getTime();
+let timer1 = setInterval(()=> {
 
-  // get the difference
-  const diff = myDate - today;
+  const today = new Date();
 
-  // math
-  let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  let year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  let date = today.getDate();
 
-  // display
-  document.getElementById("days").innerHTML=days
-  document.getElementById("hours").innerHTML=hours
-  document.getElementById("minutes").innerHTML=minutes
-  document.getElementById("seconds").innerHTML=seconds
+  document.getElementById("date").innerHTML=`${year} / ${month} / ${date}`;
 
+}, 1000 * 60 * 60 * 24); // 하루 간격으로 갱신
 
+let timer2 = setInterval(() => {
+
+  const today = new Date();
+
+  let hours = today.getHours();
+  let minutes = today.getMinutes();
+  let seconds = today.getSeconds();
+  
+  document.getElementById("time").innerHTML=`${hours} : ${minutes} : ${seconds}`;
 
 }, 1);
 </script>
